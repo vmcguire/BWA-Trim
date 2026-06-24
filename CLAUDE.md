@@ -1,14 +1,19 @@
 # BWA-Trim — read before doing anything
 
-> ⚠️ **This is a release-mirror repo, not the dev surface.**
-> Do all work in the monorepo: **`~/Developer/bwa-fx-ecosystem/BWA-Trim/`**
-> (there is **no** `plugins/` folder — that path is obsolete). Releases land
-> here via `git subtree push` from the monorepo; a commit made directly here
-> that the monorepo lacks is a bug to reconcile, not a feature.
+> ✅ **This is the CANONICAL home for BWA-Trim.** All serious DSP, IP, and
+> process for this plugin live **here**, in `~/Developer/BWA-Trim/`. Author here — always.
 >
-> **Why:** every BWA plugin ships two surfaces — standalone VST3 **and**
-> embedded BWA-Mix cell — off **one** `dsp/` module. Single-source DSP is
-> locked (`ECOSYSTEM.md` Principle 3). The monorepo is the only dev surface.
+> The `bwa-fx-ecosystem` monorepo is **NOT** a second source of truth for this
+> plugin — it is only a build/assembly workspace that gives **BWA-Mix** the slice
+> it needs to embed this FX as a *cell* (via a **symlink** back into this repo).
+> **Never author plugin IP in the monorepo.** If any of this plugin's DSP still
+> lives inside BWA-Mix or a monorepo copy, the job is to bring it **here** — the
+> standalone is always the destination.
+>
+> **Why:** every BWA plugin ships two surfaces — standalone VST3 **and** an
+> embedded BWA-Mix cell — off **one** canonical `dsp/` module that lives in this
+> repo. Single-source DSP is locked (`ECOSYSTEM.md` Principle 3).
+> Topology: `BWA-Architecture/docs/REPO-CANONICALIZATION-PLAN.md`.
 
 ## What this plugin is
 
@@ -42,11 +47,11 @@ Read in order (all under `~/Developer/BWA-Architecture/`):
 
 ## Release ritual
 
-From the monorepo `~/Developer/bwa-fx-ecosystem/`, after the release commit on `main`:
+This repo is canonical — release straight from it. After the release commit on `main`:
 
 ```bash
-git subtree push --prefix=BWA-Trim git@github.com:vmcguire/BWA-Trim.git main
+git push origin main
 ```
 
-Then cut a GitHub Release in this mirror and attach the notarized `BWA-Trim.vst3`.
-See `docs/PLUGIN-AUTHORING.md §7` for the full ritual.
+Then cut a GitHub Release here (`vmcguire/BWA-Trim`) and attach the notarized `BWA-Trim.vst3`.
+No `git subtree push` from the monorepo — that flow is retired. See `docs/PLUGIN-AUTHORING.md §7`.
